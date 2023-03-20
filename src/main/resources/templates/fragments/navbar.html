@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark text-light">
+    <a href="#" class="navbar-brand"><h3><i class="fas fa-book"></i> </h3></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="myNav">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item"><a class="nav-link" th:href="@{/home}">
+                Home
+            </a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/authors}">
+                Authors
+            </a></li>
+            <li class="nav-item"><a th:href="@{/list-books}" class="nav-link" href="">
+                Books
+            </a></li>
+
+
+        </ul>
+    </div>
+</nav>
+</body>
+</html>
