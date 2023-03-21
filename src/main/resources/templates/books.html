@@ -3,41 +3,70 @@
 
 <body>
 <main role="main">
-<div class="container my-5">
-    <div class="row">
-        <div class="col">
-            <div th:if="${success}" class="alert alert-success">
-                <span>Book is successfully saved.</span>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <div th:if="${success}" class="alert alert-success" role="alert">
+                    <span>Book is successfully saved.</span>
+                </div>
+                <div th:if="${delete}" class="alert alert-success" role="alert">
+                    <span>Book is successfully deleted.</span>
+                </div>
+                <div th:if="${update}" class="alert alert-success" role="alert">
+                    <span>Book is successfully updated.</span>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Year Published</th>
+                        <th>Publisher</th>
+                        <th>Author</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form th:action="@{/ui/update/book}" th:object="${updateBook}" method="post">
+                        <tr th:each="book :${books}">
+                            <td th:if="${!book.render}" th:text="${book.id}"></td>
+                            <td th:if="${book.render}" th:text="${book.id}"></td>
+                            <td th:text="${book.title}" th:if="${!book.render}"></td>
+                            <td th:if="${book.render}"><input th:field="*{title}" type="text" class="form-control"></td>
+
+                            <td th:text="${'$'+book.price}" th:if="${!book.render}"></td>
+                            <td th:if="${book.render}"><input type="text" th:field="*{price}" class="form-control"></td>
+
+                            <td th:text="${book.yearPublished}" th:if="${!book.render}"></td>
+                            <td th:if="${book.render}"><input type="text" th:field="*{yearPublished}" class="form-control"></td>
+
+                            <td th:text="${book.publisher}" th:if="${!book.render}"></td>
+                            <td th:if="${book.render}"><input type="text" th:field="*{publisher}" class="form-control" ></td>
+
+                            <td th:text="${book.author.name}" th:if="${!book.render}"></td>
+                            <td th:if="${book.render}" th:text="${book.author.name}"></td>
+                          <td th:if="${!book.render}">
+                                <a th:href="@{'/book/remove?id='+${book.id}}" class="btn btn-outline-danger">Delete</a>
+
+                            </td>
+                            <td th:if="${!book.render}">
+                                <a th:href="@{'/book/ui-update?id='+${book.id}}"
+                                   class="btn btn-outline-info">Update</a>
+                            </td>
+
+
+                                <td th:if="${book.render}"><input type="submit" value="Save" class="btn btn-outline-primary"></td>
+
+                        </tr>
+                    </form>
+                    </tbody>
+                </table>
+
+                <a th:href="@{/book-form}" class="btn btn-primary my-3">New Book</a>
             </div>
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                      <th>Id</th>
-                      <th>Title</th>
-                      <th>Price</th>
-                      <th>Year Published</th>
-                      <th>Publisher</th>
-                      <th>Author</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                <tr th:each="book :${books}">
-                    <td th:text="${book.id}"></td>
-                    <td th:text="${book.title}"></td>
-                    <td th:text="${'$'+book.price}"></td>
-                    <td th:text="${book.yearPublished}"></td>
-                    <td th:text="${book.publisher}"></td>
-                    <td th:text="${book.author.name}"></td>
-
-                </tr>
-                </tbody>
-            </table>
-
-            <a th:href="@{/book-form}" class="btn btn-primary my-4">New Book</a>
         </div>
     </div>
-</div>
 </main>
 </body>
 </html>
